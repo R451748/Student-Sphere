@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-image: url('/images/img1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #111;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        table {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Student Management System</a>
+            <div class="d-flex ms-auto">
+                <a href="/" class="btn btn-danger btn-sm px-3 me-2">Home</a>
+                <a href="/students/add" class="btn btn-success btn-sm px-3">Add Student</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Student Details Table -->
+    <div class="container">
+        <h2>Student Details</h2>
+        <table class="table table-striped table-bordered text-center">
+            <  <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Roll Number</th>
+                    <th>Name</th>
+                    <th>Semester</th>
+                    <th>Gender</th>
+                    <th>Branch</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.rollNumber}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.semester}"></td>
+                    <td th:text="${student.gender}"></td>
+                    <td th:text="${student.branch}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:text="${student.address}"></td>
+                   <td>
+                            <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-warning">Edit</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger delete-btn" th:data-id="${student.id}">Delete</button>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${#lists.isEmpty(students)}" class="text-center text-white">
+            <p>No students found!</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    let studentId = this.getAttribute("data-id");
+
+                    if (confirm("Are you sure you want to delete this student?")) {
+                        fetch(`/students/delete/${studentId}`, {
+                            method: "DELETE"
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Failed to delete student.");
+                            }
+                            return response.text();
+                        })
+                        .then(data => {
+                            alert("Student deleted successfully!");
+                            this.closest("tr").remove(); // ✅ Remove row from table
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("Error deleting student. Please try again.");
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

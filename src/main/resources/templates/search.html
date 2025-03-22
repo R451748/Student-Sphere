@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Student</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"> <!-- Link to external CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+          <a class="navbar-brand">Student Management System</a>
+            <ul class="nav-links">
+ 
+                  <li class="nav-item"><a class="nav-link" href="/students/add">Students</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/faculty/add_attendance">Attendance</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/department/add">Department</a></li>
+            </ul>
+            <div class="user-actions">
+             <a href="/index" class="btn btn-danger px-3 py-2 rounded">Home</a>
+<a href="/logout" class="btn btn-danger px-3 py-2 rounded">Logout</a>
+
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Background Image -->
+    <div class="hero">
+        <h2>Search Your Details</h2>
+    </div>
+
+    <!-- Search Form -->
+    <div class="container">
+        <form action="/students/search" method="get" class="search-form">
+            <label for="rollNumber">Enter Your Roll Number</label>
+            <input type="text" id="rollNumber" name="rollNumber" required>
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+
+        <!-- Show Student Details if Found -->
+        <div class="student-details" th:if="${student}">
+            <h3>Your Details</h3>
+            <ul>
+                <li><strong>Roll No:</strong> <span th:text="${student.rollNumber}"></span></li>
+                <li><strong>Name:</strong> <span th:text="${student.name}"></span></li>
+                <li><strong>Sem:</strong> <span th:text="${student.semester}"></span></li>
+                <li><strong>Gender:</strong> <span th:text="${student.gender}"></span></li>
+                <li><strong>Branch:</strong> <span th:text="${student.branch}"></span></li>
+                <li><strong>Email:</strong> <span th:text="${student.email}"></span></li>
+                <li><strong>Address:</strong> <span th:text="${student.address}"></span></li>
+            </ul>
+        </div>
+
+        <!-- Show Error Message if Student Not Found -->
+        <div class="error-message" th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+    </div>
+
+</body>
+</html>

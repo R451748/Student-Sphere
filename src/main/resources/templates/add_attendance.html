@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Attendance</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('/images/img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        }
+
+        h2 {
+            color: #fff; /* White text for visibility on background */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Student Management System</a>
+            <div class="d-flex">
+                <a href="/" class="btn btn-danger btn-sm px-3 me-2">Home</a>
+                <a href="/logout" class="btn btn-danger btn-sm px-3">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Add Attendance</h2>
+
+        <div class="d-flex justify-content-center">
+            <div class="form-container">
+                <form th:action="@{/attendance/save}" method="post" style="width: 300px;">
+                    <div class="mb-3">
+                        <label for="studentName" class="form-label">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" class="form-control form-control-sm" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rollNumber" class="form-label">Roll Number</label>
+                        <input type="text" id="rollNumber" name="rollNumber" class="form-control form-control-sm" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="courseId" class="form-label">Course ID</label>
+                        <input type="text" id="courseId" name="courseId" class="form-control form-control-sm" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="attendanceStatus" class="form-label">Attendance Status</label>
+                        <select id="attendanceStatus" name="attendanceStatus" class="form-control form-control-sm" required>
+                            <option value="Present">Present</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                    </div>
+
+                    <!-- Add attendance percentage -->
+                    <div class="mb-3">
+                        <label for="attendancePercentage" class="form-label">Attendance Percentage</label>
+                        <input type="number" id="attendancePercentage" name="attendancePercentage" class="form-control form-control-sm" min="0" max="100" step="0.1" required>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-sm">Save Attendance</button>
+                        <a href="/attendance/list" class="btn btn-secondary btn-sm">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

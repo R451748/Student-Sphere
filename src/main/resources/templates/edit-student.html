@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edit Student</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background Image */
+        body {
+            background: url('/images/img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Form Container */
+        .container {
+            max-width: 600px;
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Form Label */
+        .form-label {
+            font-weight: bold;
+        }
+
+        /* Buttons Styling */
+        .btn {
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #ff3b5c;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff1e43;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Student Management System</a>
+            <div class="d-flex ms-auto">
+                <a href="/" class="btn btn-danger btn-sm px-3 me-2">Home</a>
+                <a href="/logout" class="btn btn-danger btn-sm px-3">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Edit Student</h2>
+
+        <form action="/students/update" method="post">
+            <input type="hidden" name="id" th:value="${student.id}" />
+
+            <div class="mb-3">
+                <label class="form-label">Roll Number:</label>
+                <input type="text" class="form-control" name="rollNumber" th:value="${student.rollNumber}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" th:value="${student.name}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Semester:</label>
+                <input type="number" class="form-control" name="semester" th:value="${student.semester}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gender:</label>
+                <select class="form-control" name="gender">
+                    <option th:selected="${student.gender == 'Male'}">Male</option>
+                    <option th:selected="${student.gender == 'Female'}">Female</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Branch:</label>
+                <input type="text" class="form-control" name="branch" th:value="${student.branch}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" name="email" th:value="${student.email}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Address:</label>
+                <input type="text" class="form-control" name="address" th:value="${student.address}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Update</button>
+            <a href="/students" class="btn btn-secondary w-100 mt-2">Cancel</a>
+        </form>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Background Image */
+        body {
+            background: url('/images/img1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff; /* White text for contrast */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            background: #fff;
+            color: #000;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .table {
+            border: 2px solid #000; /* Dark and thick border */
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8); /* Slight transparency */
+        }
+
+        /* Buttons Styling */
+        .btn {
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .btn-danger {
+            background-color: #ff3b5c;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #ff1e43;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #ff3b5c;
+            border-color: #ff3b5c;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        /* Center-align the button below the table */
+        .add-faculty-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Student Management System</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="d-flex ms-auto">
+                    <a href="/" class="btn btn-danger btn-sm px-3 me-2">Home</a>
+                    <a href="/logout" class="btn btn-danger btn-sm px-3">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Faculty List</h2> <!-- Added Faculty List heading -->
+        <div class="table-responsive" style="max-width: 900px; margin: 0 auto;">
+            <table class="table table-striped table-bordered mt-2">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Department ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Thymeleaf Loop to Display Faculty Data -->
+                    <tr th:each="faculty : ${facultyList}">
+                        <td th:text="${faculty.facId}"></td>
+                        <td th:text="${faculty.username}"></td>
+                        <td th:text="${faculty.email}"></td>
+                        <td th:text="${faculty.did}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Button placed below the table and centered in the container -->
+        <div class="add-faculty-btn">
+            <a href="/faculty/add" class="btn btn-primary">Add Another Faculty</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
